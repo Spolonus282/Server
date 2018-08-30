@@ -1,0 +1,41 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class="title">
+  <br>
+  <h1>Website</h1>
+  <br>
+</div>
+<nav class="navbar">
+  <div class="links">
+    <ul>
+      <li><a href="{{url_for('blog.calendar') }}">Calendar</a></li>
+      <li><a href="{{url_for('blog.index') }}">Blog</a></li>
+      <li><a href="{{url_for('auth.register') }}">Temporary Change Password</a></li>
+      <li><a href="http://uni.illinois.edu">Uni Web</a></li>
+      <li><a href="http://www.ujhs.com">UJHS Web</a></li>
+      <li><a href="http://sites.google.com/a/unity.k12.il.us/unitywestelementary">Unity West Web</a></li>
+      <li><a href="http://school.stthomasphilo.org/">St. Thomas Web</a></li>
+    </ul>
+  </div>
+  <div class="logs">
+    <ul class="account">
+      {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span></li>
+        <li class="log"><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+      {% else %}
+        <li><span>Log in to add or edit</span></li>
+        <li class="log"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>

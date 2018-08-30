@@ -29,4 +29,6 @@ if defined _OLD_VIRTUAL_PATH (
 
 set "PATH=%VIRTUAL_ENV%\Scripts;%PATH%"
 
+set FLASK_APP=Page
+set FLASK_DEBUG=1
 :END
