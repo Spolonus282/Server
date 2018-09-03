@@ -8,19 +8,7 @@
   {% if g.user %}
     <center><iframe src="https://calendar.google.com/calendar/b/2/embed?showTitle=0&amp;showPrint=0&amp;showCalendars=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23ccffff&amp;src=emilypolonus79%40gmail.com&amp;color=%230F4B38&amp;ctz=America%2FChicago" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe></center>
     <!-- <iframe src="https://calendar.google.com/calendar/embed?src=78ib5sivdfi1rbie82io35imcc%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
-    <div>
-      <button id="authorize_button" style="display: none;">Authorize</button>
-      <button id="signout_button" style="display: none;">Sign Out</button>
-
-      <pre id="content"></pre>
-
-      <script type="text/javascript" src="{{url_for('static', filename='calendar.js')}}"></script>
-
-      <script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-      </script>
-    {% else %}
-      <h3>Log in to view content</h3>
-    {% endif %}
+  {% else %}
+    <h3>Log in to view content</h3>
+  {% endif %}
 {% endblock %}

@@ -9,6 +9,11 @@ body {
   background: white;
 }
 
+.image {
+  max-width: 100%;
+  max-height: 25rem;
+}
+
 h1 {
   font-family: serif;
   color: #377ba8;
@@ -59,6 +64,10 @@ nav h1 a {
   text-decoration: underline;
 }
 
+.navbar div.logs ul li a{
+  min-width: 8rem;
+}
+
 .links ul li, .navbar div.logs{
   border-style: ridge;
   border-width: thick;
@@ -72,7 +81,7 @@ nav ul {
 }
 
 .navbar div.logs{
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding: 0.25rem 0.5rem 0 0.5rem;
 }
 
 div ul.account {
@@ -83,6 +92,14 @@ div ul.account {
 nav ul li a, header .action {
   display: block;
   padding: 0.5rem;
+}
+
+nav ul li a.stack {
+  padding: 0;
+}
+
+#username, #password, #confirm, #previous {
+  max-width: 15rem;
 }
 
 header {
@@ -172,7 +189,7 @@ input.danger {
   color: #cc2f2e;
 }
 
-input[type=submit] {
+input[type=submit], input[type=button] {
   align-self: start;
   min-width: 10em;
 }

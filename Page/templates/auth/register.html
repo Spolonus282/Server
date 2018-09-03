@@ -5,13 +5,17 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="previous">Previous Password</label>
-    <input type="password" name="previous" id="previous" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <label for="confirm">Confirm Password</label>
-    <input type="password" name="confirm" id="confirm" required>
-    <input type="submit" value="Change Password">
-  </form>
+  <center>
+    <form method="post">
+      <label for="previous">Password</label>
+      <input type="password" name="previous" id="previous">
+      <label for="username">Change Username</label>
+      <input name="username" id="username">
+      <label for="password">Change Password</label>
+      <input type="password" name="password" id="password">
+      <label for="confirm">Confirm Password</label>
+      <input type="password" name="confirm" id="confirm">
+      <input type="submit" value="Done">
+    </form>
+  </center>
 {% endblock %}

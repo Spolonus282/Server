@@ -2,18 +2,24 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
-
 from Page.auth import login_required
 from Page.db import get_db
+from Page.__init__ import ALLOWED_EXTENSIONS, UPLOAD_FOLDER
+import os.path
+from werkzeug.utils import secure_filename
 
 bp = Blueprint('blog', __name__)
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @bp.route('/')
+@login_required
 def index():
     db = get_db()
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, body, image, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
@@ -26,19 +32,30 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
+        if request.files: file = request.files['image']
+        #image = request.form['image']
+        print('\n'+body+'\n')
         error = None
-
         if not title:
             error = 'Title is required.'
 
         if error is not None:
             flash(error)
+
+        if (request.files) and (error is None) and (file.filename != '') and (allowed_file(file.filename)):
+            #os.mknod(UPLOAD_FOLDER+'/'+filename)
+            #with open(UPLOAD_FOLDER+'/'+filename,'w'): pass
+            filename = secure_filename(file.filename)
+            out = 'images/'+filename
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
         else:
+            out = ''
+        if error is None:
             db = get_db()
             db.execute(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+                'INSERT INTO post (title, body, author_id, image)'
+                ' VALUES (?, ?, ?, ?)',
+                (title, body, g.user['id'], out)
             )
             db.commit()
             return redirect(url_for('blog.index'))
@@ -102,6 +119,7 @@ def delete(id):
 
 
 @bp.route('/calendar')
+@login_required
 def calendar():
     db = get_db()
     return render_template('blog/calendar.html')
